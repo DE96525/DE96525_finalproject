@@ -1,0 +1,123 @@
+MPASM  5.51                 FINAL PROJECT.ASM   12-28-2020  0:12:02         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Error[105]  : Cannot open file (Include File "Servo.h" not found)
+                      00001 #include <Servo.h>
+Error[105]  : Cannot open file (Include File "IRremote.h" not found)
+                      00002 #include <IRremote.h>   
+Error[108]  : Illegal character (/)
+                      00003 //Automatic Remote Door Lock system//
+                      00004 
+Error[122]  : Illegal opcode (receive)
+                      00005 int receive = 3;
+Error[122]  : Illegal opcode (irrecv)
+                      00006 IRrecv irrecv(receive);;
+Error[122]  : Illegal opcode (results)
+                      00007 decode_results results;
+                      00008 
+Error[122]  : Illegal opcode (int)
+                      00009 const int RED = 10;
+Error[122]  : Illegal opcode (int)
+                      00010 const int GREEN = 11;
+Error[122]  : Illegal opcode (int)
+                      00011 const int piezo = 12;
+                      00012 
+Error[122]  : Illegal opcode (motor)
+                      00013 Servo motor;
+                      00014 
+                      00015 
+Error[122]  : Illegal opcode (setup)
+                      00016 void setup() { 
+Warning[207]: Found label after column 1. (Serial.begin)
+Error[108]  : Illegal character (()
+                      00017   Serial.begin(9600); ; 
+Warning[207]: Found label after column 1. (irrecv.enableIRIn)
+Error[108]  : Illegal character (()
+                      00018   irrecv.enableIRIn();;
+Warning[207]: Found label after column 1. (pinMode)
+Error[108]  : Illegal character (()
+                      00019   pinMode(10,OUTPUT);   ;   // Set redLED - pin 10 as an output
+Warning[207]: Found label after column 1. (pinMode)
+Error[108]  : Illegal character (()
+                      00020   pinMode(11,OUTPUT);   ;   // Set greenLED - pin 11 as an output
+Warning[207]: Found label after column 1. (pinMode)
+Error[108]  : Illegal character (()
+                      00021   pinMode(12, OUTPUT);  ;  // Set piezo - pin 9 as an output
+Warning[207]: Found label after column 1. (motor.attach)
+Error[108]  : Illegal character (()
+                      00022   motor.attach(13);;
+Error[108]  : Illegal character (})
+                      00023 }
+                      00024 
+Error[122]  : Illegal opcode (loop)
+                      00025 void loop() {
+Error[113]  : Symbol not previously defined (irrecv.decode)
+Error[128]  : Missing argument(s)
+Error[113]  : Symbol not previously defined (results)
+MPASM  5.51                 FINAL PROJECT.ASM   12-28-2020  0:12:02         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Error[124]  : Illegal argument
+Error[108]  : Illegal character ({)
+                      00026         if (irrecv.decode(&results)){
+                      00027                 
+                      00028       switch (results.value){
+                      00029 
+                      00030         case 0xFD50AF:                                  // door locks when UP button pressed
+                      00031                 motor.write(-180);;
+                      00032                 digitalWrite(10, HIGH);         ;         // set pin 10 to high voltage, turning LED on
+                      00033                         digitalWrite(11, LOW);          ;          // set pin 11 to low voltage, or zero
+                            . LED off.
+                      00034                         digitalWrite(12, HIGH);         ;         // set pin 12 to high voltage, turn on
+                             piezo so
+                      00035                 delay(1000);                            ;                            // delay 1 sec
+                      00036                 digitalWrite(12, LOW);          ;          // set pin 12 to low voltage, turn off piezo 
+                      00037                 delay(1000);;
+                      00038                 break;
+                      00039         case 0xFD10EF:                                  // door unlocks when DOWN button pressed
+                      00040                         motor.write(180);;
+                      00041                 digitalWrite(11, HIGH);         ;         // set pin 11 to high voltage, turning LED on
+                      00042                         digitalWrite(10, LOW);          ;          // set pin 10 to low voltage, or zero
+                            . LED off.
+                      00043                         digitalWrite(12, HIGH);;
+                      00044                 delay(1000);;
+                      00045                 digitalWrite(12, LOW);;
+                      00046                 delay(1000);;
+                      00047                 break; 
+                      00048         default:
+                      00049                 break;      
+                      00050     }    
+                      00051     irrecv.resume(); ; 
+                      00052   }
+                      00053   delay(100);;
+                      00054 }
+MPASM  5.51                 FINAL PROJECT.ASM   12-28-2020  0:12:02         PAGE  3
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__18F4550                         00000001
+__DEBUG                           1
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+
+All other memory blocks unused.
+
+Program Memory Bytes Used:     0
+Program Memory Bytes Free: 32768
+
+
+Errors   :    24
+Warnings :     6 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+
